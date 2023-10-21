@@ -1,0 +1,417 @@
+﻿<div class="row">
+    <div class="panel-default col-sm-12 col-xl-12">
+        <div class="panel-heading  ">
+            <span class="glyphicon glyphicon-minus-sign"> </span>
+        </div>
+        <div class="panel-body">
+            <div class="panel-body-botones">
+                <div class="col-sm-12 text-center">
+                    <button type="button" id="btnListado" class="btn bg-primary text-center" onclick="ShowRegistrar()">Registrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="panel-default panel-default-Second col-sm-12 col-xl-12">
+        <div class="panel-body" style="overflow: auto">
+            <div class="row row-min-width">
+                <div class="col-sm-12 col-sm-offset-1 " style="padding-bottom:1px;">
+                    <table id="tblListado" class="table table-responsive table-bordered table-RowSelec">
+                        <thead>
+                            <tr class="bg-primary">
+                                <th class="text-center"> Contador</th>
+                                <th class="text-center"> Id Alumno</th>
+                                <th class="text-center"> Id Curso</th>
+                                <th class="text-center"> Id Session</th>
+                                <th class="text-center"> Tipo matricula</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <div class="col-sm-12 col-sm-offset-1 col-xs-100" style="margin-top:-20px">
+                    <div id="divPaginacion">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Registrar-->
+<div class="modal fade bd-example-modal-xl" tabindex="-1" id="divRegistar" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-12" style="padding-right: 0px; padding-left: 0px;">
+                    <h4 class="modal-title; col-form-label" id="exampleModalLabel" style="margin-bottom: 0px;margin-top: 0px;">Registrar matricula</h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <from>
+                    <div class="col-sm-12 col-sm-offset-1">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="form-group">
+                                    <label for="mSelAlumno">Alumno: </label>
+                                    <div class="col-sm-12">
+                                        <select class="form-control text-obligatorio" id="mSelAlumno">
+                                            <option>Seleccione</option>
+                                        </select>
+                                    </div>
+
+                                    <label for="mSelCurso">Curso: </label>
+                                    <div class="col-sm-12">
+                                        <select class="form-control text-obligatorio" id="mSelCurso" onchange="SelCurso()">
+                                            <option>Seleccione</option>
+                                        </select>
+                                    </div>
+
+                                    <label for="mSelSession">Session: </label>
+                                    <div class="col-sm-12">
+                                        <select class="form-control text-obligatorio" id="mSelSession" onchange="SelSession()">
+                                            <option>Seleccione</option>
+                                        </select>
+                                    </div>
+
+                                    <label for="filCreditos" class="col-sm-4 control-label disabled">Creditos:</label>
+                                    <div class="col-sm-12">
+                                        <input name="txtCreditos" id="txtCreditos" class="form-control" type="text" disabled>
+                                    </div>
+
+                                    <label for="filVacantes" class="col-sm-4 control-label disabled">Vacantes:</label>
+                                    <div class="col-sm-12">
+                                        <input name="txtVacantes" id="txtVacantes" class="form-control" type="text" disabled>
+                                    </div>
+
+                                    <label for="mSelTipoMatricula">Tipo matricula: </label>
+                                    <div class="col-sm-12">
+                                        <select class="form-control text-obligatorio" id="mSelTipoMatricula">
+                                            <option value="1">Presencial</option>
+                                            <option value="2">Virtual</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </from>
+                <br />
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" onclick="MatricularController()">Matricular</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Editar--> 
+<div class="modal fade bd-example-modal-xl" tabindex="-1" id="divEditar" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-12" style="padding-right: 0px; padding-left: 0px;">
+                    <h4 class="modal-title; col-form-label" id="exampleModalLabel" style="margin-bottom: 0px;margin-top: 0px;">Registrar matricula</h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <from>
+                    <div class="col-sm-12 col-sm-offset-1">
+                        <div class="col-md-12">
+                            <div>
+                                <div class="form-group">
+                                    <label for="mSelAlumnoEditar">Alumno: </label>
+                                    <div class="col-sm-12">
+                                        <select class="form-control text-obligatorio disabled" id="mSelAlumnoEditar">
+                                            <option>Seleccione</option>
+                                        </select>
+                                    </div>
+
+                                    <label for="mSelCursoEditar">Curso: </label>
+                                    <div class="col-sm-12">
+                                        <select class="form-control text-obligatorio" id="mSelCursoEditar" onchange="SelCursoEditar()">
+                                            <option>Seleccione</option>
+                                        </select>
+                                    </div>
+
+                                    <label for="mSelSessionEditar">Session: </label>
+                                    <div class="col-sm-12">
+                                        <select class="form-control text-obligatorio" id="mSelSessionEditar" onchange="SelSessionEditar()">
+                                            <option>Seleccione</option>
+                                        </select>
+                                    </div>
+
+                                    <label for="filCreditos" class="col-sm-4 control-label disabled">Creditos:</label>
+                                    <div class="col-sm-12">
+                                        <input name="txtCreditosEditar" id="txtCreditosEditar" class="form-control" type="text" disabled>
+                                    </div>
+
+                                    <label for="filVacantes" class="col-sm-4 control-label disabled">Vacantes:</label>
+                                    <div class="col-sm-12">
+                                        <input name="txtVacantesEditar" id="txtVacantesEditar" class="form-control" type="text" disabled>
+                                    </div>
+
+                                    <label for="mSelTipoMatricula">Tipo matricula: </label>
+                                    <div class="col-sm-12">
+                                        <select class="form-control text-obligatorio" id="mSelTipoMatriculaEditar">
+                                            <option value="1">Presencial</option>
+                                            <option value="2">Virtual</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </from>
+                <br />
+                <div class="text-center">
+                    <button type="button" class="btn btn-success" onclick="EditarMatricularController()">Editar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Eliminar-->
+<div class="modal fade bd-example-modal-xl" tabindex="-1" id="divEliminar" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-lg-12" style="padding-right: 0px; padding-left: 0px;">
+                    <div class="col-lg-6" style="padding-right: 0px; padding-left: 0px;">
+                        <h4 class="modal-title; col-form-label" id="exampleModalLabel" style="margin-bottom: 0px;margin-top: 0px;">Eliminar</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <from>
+                    <p>Desea eliminar este cliente?</p>
+                        <div class="col-sm-12 col-sm-offset-1">
+                            <div class="col-md-6 offset-md-3">
+                                <div>
+                                    <label for="filCodigo" class="col-sm-4 control-label">Id:</label>
+                                    <div class="col-sm-12">
+                                        <input name="txtIdEliminar" id="txtIdEliminar" class="form-control" type="text" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </from>
+                <br />
+                <div class="text-center">
+                    <button type="button" class="btn bg-danger" onclick="EliminarMatriculaController()">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>    
+
+    var listaAlu;
+    var listSes;
+    var listCur;
+    var listMatri;
+    function ShowRegistrar() 
+    {
+        $.ajax({
+            url: "/Home/CargarCombos",
+            data: {},
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+
+                if (response.respuesta == 1) {
+                    listaAlu = response.listAlumno;
+                    listSes = response.listaSession;
+                    listCur = response.listaCurso;
+
+                    $("#mSelAlumno").empty();
+                    $("#mSelAlumno").append("<option value='0' >Seleccione</option>");
+                    for (var i = 0; i < listaAlu.length; i++) {
+                        $("#mSelAlumno").append("<option value='" + listaAlu[i].dni.toString() + "' >" + listaAlu[i].nombre + " " + listaAlu[i].apellido + "</option>");
+                    }
+                    
+                    $("#mSelSession").empty();
+                    $("#mSelSession").append("<option value='0' >Seleccione</option>");
+                    for (var i = 0; i < listSes.length; i++) {
+                        $("#mSelSession").append("<option value='" + listSes[i].id.toString() + "' >" + listSes[i].nombre + "</option>");
+                    }
+
+                    $("#mSelCurso").empty();
+                    $("#mSelCurso").append("<option value='0' >Seleccione</option>");
+                    for (var i = 0; i < listCur.length; i++) {
+                        $("#mSelCurso").append("<option value='" + listCur[i].id.toString() + "' >" + listCur[i].descripcioncurso + "</option>");
+                    }
+
+                    $('#divRegistar').modal('show');
+
+
+
+                } else {
+                    alert(response.mensaje);
+                }
+            },
+            error: function (result) {
+                window.location.reload(true);
+            }, complete: function () {
+            }
+        });
+
+        
+    }
+
+    function SelCurso() 
+    {
+        var idCurso = $("#mSelCurso").val();
+        var idsession = listCur.filter(x => x.id === idCurso);
+        var listFilterSession = listSes.filter(x => x.id === idsession[0].idsession);
+
+        $("#mSelSession").empty();
+        $("#mSelSession").append("<option value='0' >Seleccione</option>");
+
+        for (var i = 0; i < listFilterSession.length; i++) {
+            $("#mSelSession").append("<option value='" + listFilterSession[i].id.toString() + "' >" + listFilterSession[i].nombre + "</option>");
+        }
+
+        var valor = document.getElementById("txtCreditos");
+        valor.value = idsession[0].cantcredito;
+        var valor = document.getElementById("txtVacantes");
+        valor.value = "";
+    }
+
+    function SelSession() 
+    {
+        var idSession = $("#mSelSession").val();
+        var idVacante = listSes.filter(x => x.id === idSession)[0].vatantes;
+
+        var valor = document.getElementById("txtVacantes");
+        valor.value = idVacante;
+        
+    }
+
+    function MatricularController() 
+    {
+        if (ValidacionMatricula() == false) {
+            return;
+        }
+
+        var inputObj = {
+            idAlumno: $("#mSelAlumno").val(),
+            idCurso: $("#mSelCurso").val(),
+            idSession: $("#mSelSession").val(),
+            idCredito: $('#txtCreditos').val(),
+            idVacantes: $('#txtVacantes').val(),
+            idTipoMatricula: $('#mSelTipoMatricula').val()
+        }
+
+        $.ajax({
+            url: "/Home/RegistrarMatricula",
+            data: JSON.stringify(inputObj),
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+
+                if (response.respuesta == 1) {
+                    listMatri = response.listMatricula;
+                    $('#divRegistar').modal('hide');
+
+                    $('#tblListado >tbody').empty();
+                    for (var i = 0; i < listMatri.length; i++) {
+                        var html = "";
+                        html += '<tr>';
+                        html += "<td class='text-center'>";
+                        html += "<button type='button' class='btn btn-success' onclick='EditarMatricula(" + listMatri[i].idAlumno + ")' >Editar</button> ";
+                        html += "<button type='button' class='btn bg-danger' onclick='EliminarMatricula(" + listMatri[i].idAlumno + ")'  >Eliminar</button> ";
+                        html += "</td>";
+                        html += '<td class="text-center">' + listMatri[i].idAlumno + '</td>';
+                        html += '<td class="text-center">' + listMatri[i].idCurso + '</td>';
+                        html += '<td class="text-center">' + listMatri[i].idSession + '</td>';
+                        html += '<td class="text-center">' + listMatri[i].idTipoMatricula + '</td>';
+                        html += '</tr>';
+
+                        $('#tblListado >tbody').append(html);
+                    }
+
+                } else {
+                    alert(response.mensaje);
+                }
+            },
+            error: function (result) {
+                window.location.reload(true);
+            }, complete: function () {
+            }
+        });
+
+    }
+
+    function EditarMatricula(id) 
+    {
+        $("#mSelAlumnoEditar").empty();
+        $("#mSelAlumnoEditar").append("<option value='0' >Seleccione</option>");
+        for (var i = 0; i < listaAlu.length; i++) {
+            $("#mSelAlumnoEditar").append("<option value='" + listaAlu[i].dni.toString() + "' >" + listaAlu[i].nombre + " " + listaAlu[i].apellido + "</option>");
+        }
+
+        $("#mSelSessionEditar").empty();
+        $("#mSelSessionEditar").append("<option value='0' >Seleccione</option>");
+        for (var i = 0; i < listSes.length; i++) {
+            $("#mSelSessionEditar").append("<option value='" + listSes[i].id.toString() + "' >" + listSes[i].nombre + "</option>");
+        }
+
+        $("#mSelCursoEditar").empty();
+        $("#mSelCursoEditar").append("<option value='0' >Seleccione</option>");
+        for (var i = 0; i < listCur.length; i++) {
+            $("#mSelCursoEditar").append("<option value='" + listCur[i].id.toString() + "' >" + listCur[i].descripcioncurso + "</option>");
+        }
+
+        debugger
+        console.log(listaAlu);
+        var idVacante = listMatri.filter(x => x.idAlumno === id.toString());
+        $('#divEditar').modal('show');
+    }
+
+    function EliminarMatricula(id) {
+        
+    }
+
+    function ValidacionMatricula() 
+    {
+        var isValid = true;
+
+        if ($("#mSelAlumno").val() == 0) {
+            const inputElement = document.getElementById("mSelAlumno");
+            inputElement.style.border = "4px solid red";
+            isValid = false;
+        } else {
+            const inputElement = document.getElementById("mSelAlumno");
+            inputElement.style.border = "1px solid lightgrey";
+        }
+
+        if ($("#mSelCurso").val() == 0) {
+            const inputElement = document.getElementById("mSelCurso");
+            inputElement.style.border = "4px solid red";
+            isValid = false;
+        } else {
+            const inputElement = document.getElementById("mSelCurso");
+            inputElement.style.border = "1px solid lightgrey";
+        }
+
+        if ($("#mSelSession").val() == 0) {
+            const inputElement = document.getElementById("mSelSession");
+            inputElement.style.border = "4px solid red";
+            isValid = false;
+        } else {
+            const inputElement = document.getElementById("mSelSession");
+            inputElement.style.border = "1px solid lightgrey";
+        }
+
+        return isValid;
+    }
+
+</script>
